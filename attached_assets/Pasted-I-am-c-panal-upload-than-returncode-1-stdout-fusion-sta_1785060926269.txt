@@ -1,0 +1,253 @@
+I am  c panal upload  than returncode: 1
+stdout:
+> fusion-starter@ start /home/suriyade/sanmitha.suriyadev.xyz
+> node dist/server/node-build.mjs
+stderr:
+npm WARN lifecycle The node binary used for scripts is /home/suriyade/nodevenv/sanmitha.suriyadev.xyz/10/bin/node but npm is using /opt/alt/alt-nodejs10/root/usr/bin/node itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module '/home/suriyade/sanmitha.suriyadev.xyz/dist/server/node-build.mjs'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! fusion-starter@ start: `node dist/server/node-build.mjs`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the fusion-starter@ start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/suriyade/.npm/_logs/2026-07-26T09_45_32_714Z-debug.log
+
+
+error than than build  la  error than than  
+
+and  console log la  (node:2512462) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2512462) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2512462) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2594498) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2594498) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2594498) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2594762) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2594762) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2594762) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2595232) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2595232) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2595232) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2595419) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2595419) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2595419) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2620202) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2620202) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2620202) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2620354) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2620354) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2620354) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2620562) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2620562) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2620562) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2651883) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2651883) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2651883) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2652021) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2652021) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2652021) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2750324) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2750324) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2750324) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2750507) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2750507) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2750507) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2750783) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2750783) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2750783) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2761408) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2761408) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2761408) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2761559) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2761559) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2761559) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2761779) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2761779) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2761779) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:2808468) UnhandledPromiseRejectionWarning: Error: Not supported
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnodesm.js:52:18)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnodesm.js:16:1)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+(node:2808468) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+(node:2808468) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+error thow than clear
+

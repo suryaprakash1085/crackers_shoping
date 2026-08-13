@@ -1,0 +1,32 @@
+import { Router } from "express";
+import authRoutes from "./auth.routes";
+import categoryRoutes from "./category.routes";
+import productRoutes from "./product.routes";
+import serviceRoutes from "./service.routes";
+import orderRoutes from "./order.routes";
+import userRoutes from "./user.routes";
+import companyRoutes from "./company.routes";
+import dashboardRoutes from "./dashboard.routes";
+import reportRoutes from "./report.routes";
+import emailSettingsRoutes from "./emailSettings.routes";
+import accessControlRoutes from "./accessControl.routes";
+import contactRoutes from "./contact.routes";
+import appSettingsRoutes from "./appSettings.routes";
+
+const router = Router();
+
+router.use("/auth", authRoutes);
+router.use("/categories", categoryRoutes);
+router.use("/products", productRoutes);
+router.use("/services", serviceRoutes);
+router.use("/orders", orderRoutes);
+router.use("/users", userRoutes);
+router.use("/company", companyRoutes);
+router.use("/dashboard", dashboardRoutes);
+router.use("/reports", reportRoutes);
+router.use("/email-settings", emailSettingsRoutes);
+router.use("/access-control", accessControlRoutes);
+router.use("/contact", contactRoutes);
+router.use("/app-settings", appSettingsRoutes);
+
+export default router;
