@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Download, Eye } from "lucide-react";
-import { settingsStore, PdfSettings } from "@/lib/appSettings";
+import { settingsStore, PdfSettings, hslStringToHex } from "@/lib/appSettings";
 import { buildInvoicePdf } from "@/lib/invoicePdf";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { usePagePermissions } from "@/hooks/useAccessControl";
@@ -41,20 +41,25 @@ export default function PdfTemplate() {
   const upd = <K extends keyof PdfSettings>(k: K, val: PdfSettings[K]) =>
     setV((p) => ({ ...p, [k]: val }));
 
+  // Preview/sample downloads should show the exact same accent real invoices
+  // will use — the site's live Primary Colour — not the old separately
+  // configured (and now unused) accentHex field.
+  const liveAccentV = { ...v, accentHex: hslStringToHex(settingsStore.getApp().primaryHsl) };
+
   const save = () => {
     settingsStore.setPdf(v);
     toast.success("PDF template saved & applied to invoices");
   };
 
   const generatePreview = () => {
-    const doc = buildInvoicePdf(v, sampleData);
+    const doc = buildInvoicePdf(liveAccentV, sampleData);
     const blob = doc.output("bloburl") as unknown as string;
     setPreviewUrl(blob);
     toast.success("Preview refreshed");
   };
 
   const downloadSample = () => {
-    const doc = buildInvoicePdf(v, sampleData);
+    const doc = buildInvoicePdf(liveAccentV, sampleData);
     doc.save("sample-invoice.pdf");
   };
 
@@ -135,12 +140,13 @@ export default function PdfTemplate() {
             </TabsContent>
 
             <TabsContent value="style" className="space-y-3 mt-4">
-              <div className="flex items-center gap-3">
-                <input type="color" value={v.accentHex} onChange={(e) => upd("accentHex", e.target.value)} className="w-16 h-10 rounded cursor-pointer" />
-                <div className="flex-1">
-                  <Label>Accent Color</Label>
-                  <Input value={v.accentHex} onChange={(e) => upd("accentHex", e.target.value)} />
-                </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <p className="text-sm font-medium text-slate-700">Accent Color</p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  The invoice now always uses your site's Primary Colour (set on the
+                  Customization page) so the PDF stays in the same primary/secondary
+                  palette as the website — no separate accent to configure here.
+                </p>
               </div>
               <div>
                 <Label>Base Font Size: {v.baseFontSize}pt</Label>

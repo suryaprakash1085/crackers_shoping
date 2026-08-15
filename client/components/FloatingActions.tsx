@@ -31,7 +31,7 @@ export const FloatingActions = () => {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Scroll to top"
-        className={`grid place-items-center w-12 h-12 rounded-full bg-festive text-white shadow-soft transition-all hover:scale-110 ${
+        className={`grid place-items-center w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-soft transition-all hover:scale-110 ${
           show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >

@@ -3,28 +3,14 @@ import { Layout } from "@/components/Layout";
 import { useProducts } from "@/hooks/useProducts";
 import { useCategories } from "@/hooks/useCategories";
 import { useCart } from "@/context/CartContext";
-import {
-  Search,
-  Minus,
-  Plus,
-  ShoppingCart,
-  ChevronUp,
-  ChevronDown,
-  Sparkles,
-} from "lucide-react";
+import { Search, Minus, Plus, ShoppingCart, ChevronUp, ChevronDown, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useAppCustomization } from "@/lib/appSettings";
 
 const QuickOrder = () => {
   const { products, loading } = useProducts();
   const { categories: categoryList } = useCategories();
-  const {
-    updateQty,
-    items: cartItems,
-    setOpen,
-    minOrderAmount,
-    total: cartTotal,
-  } = useCart();
+  const { updateQty, items: cartItems, setOpen, minOrderAmount, total: cartTotal } = useCart();
   const { quickOrder: qo } = useAppCustomization();
   const rowPadClass = qo?.density === "compact" ? "py-1.5" : "py-3";
   const [search, setSearch] = useState("");
@@ -91,9 +77,7 @@ const QuickOrder = () => {
 
   const cartQtyMap = useMemo(() => {
     const m: Record<string, number> = {};
-    cartItems.forEach((i) => {
-      m[i.id] = i.qty;
-    });
+    cartItems.forEach((i) => { m[i.id] = i.qty; });
     return m;
   }, [cartItems]);
 
@@ -121,12 +105,8 @@ const QuickOrder = () => {
       }
     });
     return names.sort((a, b) => {
-      const orderA = orderByName.has(a)
-        ? orderByName.get(a)!
-        : Number.MAX_SAFE_INTEGER;
-      const orderB = orderByName.has(b)
-        ? orderByName.get(b)!
-        : Number.MAX_SAFE_INTEGER;
+      const orderA = orderByName.has(a) ? orderByName.get(a)! : Number.MAX_SAFE_INTEGER;
+      const orderB = orderByName.has(b) ? orderByName.get(b)! : Number.MAX_SAFE_INTEGER;
       return orderA - orderB;
     });
   }, [products, categoryList]);
@@ -233,10 +213,7 @@ const QuickOrder = () => {
         value={q === 0 ? "" : q}
         placeholder="0"
         onChange={(e) =>
-          setQ(
-            id,
-            e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0,
-          )
+          setQ(id, e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0)
         }
         onFocus={(e) => e.target.select()}
         className="w-12 h-8 text-center rounded-lg border border-slate-300 bg-white text-sm"
@@ -268,10 +245,7 @@ const QuickOrder = () => {
         value={q === 0 ? "" : q}
         placeholder="0"
         onChange={(e) =>
-          setQ(
-            id,
-            e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0,
-          )
+          setQ(id, e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0)
         }
         onFocus={(e) => e.target.select()}
         className="w-10 h-8 text-center rounded-full bg-transparent text-sm font-semibold text-slate-800 outline-none"
@@ -359,9 +333,7 @@ const QuickOrder = () => {
               >
                 <option value="All">All Categories ({products.length})</option>
                 {categories.map((c) => {
-                  const count = products.filter(
-                    (p: any) => p.category === c,
-                  ).length;
+                  const count = products.filter((p: any) => p.category === c).length;
                   return (
                     <option key={c} value={c}>
                       {c} ({count})
@@ -381,9 +353,7 @@ const QuickOrder = () => {
                   scrolled ? "text-[10px] leading-tight" : "text-xs"
                 }`}
               >
-                Minimum order amount is ₹{minOrderAmount}. Your cart currently
-                has ₹{cartTotal} — add ₹{minOrderAmount - cartTotal} more to be
-                able to checkout.
+                Minimum order amount is ₹{minOrderAmount}. Your cart currently has ₹{cartTotal} — add ₹{minOrderAmount - cartTotal} more to be able to checkout.
               </p>
             )}
           </div>
@@ -425,8 +395,7 @@ const QuickOrder = () => {
 
                   {sections.map((section) => {
                     const isCollapsed =
-                      collapsed[section.category] ??
-                      qo?.defaultExpanded === false;
+                      collapsed[section.category] ?? qo?.defaultExpanded === false;
                     return (
                       <div key={section.category}>
                         <button
@@ -459,9 +428,7 @@ const QuickOrder = () => {
                                 key={p.id}
                                 className={`grid grid-cols-[70px_90px_1fr_120px_170px_110px] items-center border-t border-slate-200 ${rowBg}`}
                               >
-                                <div
-                                  className={`px-4 ${rowPadClass} text-sm text-slate-500`}
-                                >
+                                <div className={`px-4 ${rowPadClass} text-sm text-slate-500`}>
                                   {runningCode}
                                 </div>
                                 <div className={`px-4 ${rowPadClass}`}>
@@ -472,18 +439,14 @@ const QuickOrder = () => {
                                   />
                                 </div>
                                 <div className={`px-4 ${rowPadClass}`}>
-                                  <p className="font-semibold text-slate-800">
-                                    {p.name}
-                                  </p>
+                                  <p className="font-semibold text-slate-800">{p.name}</p>
                                   {p.badge && (
                                     <span className="text-[10px] text-primary font-semibold">
                                       {p.badge}
                                     </span>
                                   )}
                                 </div>
-                                <div
-                                  className={`px-4 ${rowPadClass} text-center`}
-                                >
+                                <div className={`px-4 ${rowPadClass} text-center`}>
                                   {p.discountPercent ? (
                                     <>
                                       <p className="text-xs text-slate-400 line-through">
@@ -504,9 +467,7 @@ const QuickOrder = () => {
                                     <QtyStepper id={p.id} q={q} />
                                   </div>
                                 </div>
-                                <div
-                                  className={`px-4 ${rowPadClass} text-right font-semibold text-slate-800`}
-                                >
+                                <div className={`px-4 ${rowPadClass} text-right font-semibold text-slate-800`}>
                                   ₹{q * price}
                                 </div>
                               </div>
@@ -529,8 +490,7 @@ const QuickOrder = () => {
               <div className="md:hidden space-y-5">
                 {sections.map((section) => {
                   const isCollapsed =
-                    collapsed[section.category] ??
-                    qo?.defaultExpanded === false;
+                    collapsed[section.category] ?? qo?.defaultExpanded === false;
                   return (
                     <div key={section.category}>
                       <button
@@ -569,18 +529,18 @@ const QuickOrder = () => {
                                 <div className="flex gap-4">
                                   {/* Big square image block with numbered chip + discount ribbon */}
                                   <div className="relative shrink-0">
-                                    <div className="w-28 h-28 rounded-[22px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_18px_rgba(15,23,42,0.08)] grid place-items-center overflow-hidden">
+                                    <div className="w-28 h-28 rounded-2xl bg-slate-50 border border-slate-100 grid place-items-center overflow-hidden">
                                       <img
                                         src={p.image}
                                         alt={p.name}
-                                        className="w-full h-full object-contain p-2.5 drop-shadow-[0_8px_12px_rgba(15,23,42,0.12)]"
+                                        className="w-full h-full object-contain p-2.5"
                                       />
                                     </div>
-                                    <span className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-slate-800 text-white text-[11px] font-bold grid place-items-center shadow-md">
+                                    <span className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-slate-800 text-white text-[11px] font-bold grid place-items-center shadow">
                                       {runningCodeMobile}
                                     </span>
                                     {p.discountPercent ? (
-                                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-0.5 shadow-md">
+                                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-0.5 shadow">
                                         {p.discountPercent}% OFF
                                       </span>
                                     ) : null}

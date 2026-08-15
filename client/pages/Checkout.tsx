@@ -383,7 +383,7 @@ const [cityOpen, setCityOpen] = useState(false);
             <Button
               onClick={placeOrder}
               disabled={submitting || items.length === 0 || (MIN_ORDER_AMOUNT > 0 && total < MIN_ORDER_AMOUNT)}
-              className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-orange-500 hover:opacity-90"
+              className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-secondary hover:opacity-90"
             >
               {submitting ? "Processing..." : "Place Order & Download PDF"}
             </Button>

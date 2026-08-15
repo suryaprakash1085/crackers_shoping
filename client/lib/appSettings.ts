@@ -202,8 +202,7 @@ const defaults = {
     headerTitle: "TAX INVOICE",
     footerNote: "Thank you for your order! Light it up safely.",
     terms: "• Invoice was created on a computer and is invalid without the signature and seal.\n• Goods once sold will not be taken back or exchanged.\n• Subject to local jurisdiction.",
-    accentHex: "#ea580c",
-    companyName: "Fire Crackers Co.",
+    accentHex: "#ed4599", // matches default Primary Colour (330 82% 60%) — PDF stays in the site's 2-colour palette instead of a third accent
     companyPhone: "+91 98765 43210",
     companyEmail: "info@firecrackers.com",
     companyAddress: "123 Festival St, Sivakasi, Tamil Nadu",
@@ -248,7 +247,7 @@ const defaults = {
       ctaSecondary: "Explore Offers",
       ctaSecondaryLink: "/offers",
       image: "",
-      accentHex: "#ea580c",
+      accentHex: "#ed4599", // matches default Primary Colour — badge text stays in the site's 2-colour palette
     },
     featureStrip: {
       show: true,
@@ -274,7 +273,7 @@ const defaults = {
       cta: "View Offers",
       ctaLink: "/offers",
       image: "",
-      accentHex: "#ea580c",
+      accentHex: "#ed4599", // matches default Primary Colour
     },
     why: {
       show: true,
@@ -525,4 +524,20 @@ export const hexToRgb = (hex: string): [number, number, number] => {
   const h = hex.replace("#", "");
   const n = parseInt(h.length === 3 ? h.split("").map(c => c + c).join("") : h, 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+
+// Converts a "H S% L%" theme string (e.g. "330 82% 60%") to "#rrggbb", so
+// the live Primary Colour can be handed to code that only speaks hex
+// (jsPDF invoice rendering, native <input type="color"> pickers).
+export const hslStringToHex = (hsl: string): string => {
+  const m = hsl.trim().match(/^(-?\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
+  if (!m) return "#ea580c";
+  const h = Number(m[1]), s = Number(m[2]) / 100, l = Number(m[3]) / 100;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const b = l - c / 2;
+  let [r, g, bl] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x]
+    : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  const toHex = (n: number) => Math.round((n + b) * 255).toString(16).padStart(2, "0");
+  return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
 };

@@ -1,5 +1,5 @@
 import { api } from "./api";
-import { settingsStore, type PdfSettings } from "./appSettings";
+import { settingsStore, hslStringToHex, type PdfSettings } from "./appSettings";
 import { buildUpiUri, fetchQrDataUrl } from "./upiQr";
 
 export interface CompanyApiData {
@@ -35,6 +35,11 @@ export async function buildLiveInvoiceCfg(total: number): Promise<PdfSettings> {
 
   const cfg: PdfSettings = {
     ...pdfCfg,
+    // Invoice accent always follows the site's live Primary Colour (set on
+    // the Customization page) instead of a separately configured shade —
+    // keeps the PDF inside the same primary/secondary palette as the
+    // website, never a third colour like the old default orange.
+    accentHex: hslStringToHex(settingsStore.getApp().primaryHsl),
     companyName: company?.company_name || pdfCfg.companyName,
     companyPhone: company?.phone || pdfCfg.companyPhone,
     companyEmail: company?.email || pdfCfg.companyEmail,

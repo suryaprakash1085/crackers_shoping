@@ -110,7 +110,7 @@ export const Footer = () => {
                 placeholder="Your email"
                 className="flex-1 text-sm py-2 px-3 rounded-lg bg-white/10 border border-white/15 text-white placeholder:text-white/40 outline-none focus:border-primary transition"
               />
-              <button type="submit" className="btn-spark !px-4 !py-2 !rounded-lg text-sm">
+              <button type="submit" className="btn-spark !px-4 !py-2 !rounded-lg text-sm !bg-primary !bg-none">
                 Subscribe
               </button>
             </form>
