@@ -95,6 +95,63 @@ const ToggleRow = ({ label, desc, checked, onChange }: {
   </div>
 );
 
+/* ── hex <-> "H S% L%" conversions, so the native colour-wheel picker
+   (which only speaks hex) can read/write the same HSL string everything
+   else in this file uses. ────────────────────────────────────────────── */
+const hslStringToHex = (hsl: string): string => {
+  const m = hsl.trim().match(/^(-?\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
+  if (!m) return "#000000";
+  const h = Number(m[1]), s = Number(m[2]) / 100, l = Number(m[3]) / 100;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const b = l - c / 2;
+  let [r, g, bl] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x]
+    : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  const toHex = (n: number) => Math.round((n + b) * 255).toString(16).padStart(2, "0");
+  return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
+};
+
+const hexToHslString = (hex: string): string => {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  let h = 0, s = 0;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+    else if (max === g) h = ((b - r) / d + 2) * 60;
+    else h = ((r - g) / d + 4) * 60;
+  }
+  return `${Math.round(h)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
+};
+
+/* Custom colour creator — a real colour-wheel picker (native <input
+   type="color">) plus the raw HSL text field, so users aren't limited to
+   the preset swatches above and can create/save any colour they like. */
+const CustomColorPicker = ({ value, onChange }: { value: string; onChange: (h: string) => void }) => (
+  <div>
+    <Label className="text-xs text-slate-500">Create custom colour</Label>
+    <div className="flex gap-2 mt-1">
+      <input
+        type="color"
+        value={hslStringToHex(value)}
+        onChange={(e) => onChange(hexToHslString(e.target.value))}
+        title="Pick a custom colour"
+        className="w-9 h-9 rounded-lg border border-slate-200 shrink-0 cursor-pointer p-0.5 bg-white"
+      />
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="330 82% 60%"
+      />
+    </div>
+    <p className="text-[11px] text-slate-400 mt-1">Pick from the wheel or type an HSL value directly</p>
+  </div>
+);
+
 /* ── main component ──────────────────────────────────────────────── */
 export default function Customization() {
   const perms = usePagePermissions("customization");
@@ -170,33 +227,13 @@ export default function Customization() {
         {/* ── 1. Primary Colour ──────────────────────────────────────── */}
         <Section icon={Palette} title="Primary Colour">
           <ColorGrid colors={PRIMARY_COLORS} value={v.primaryHsl} onChange={(h) => upd("primaryHsl", h)} />
-          <div>
-            <Label className="text-xs text-slate-500">Custom HSL value</Label>
-            <div className="flex gap-2 mt-1">
-              <span className="w-8 h-9 rounded-lg border border-slate-200 shrink-0" style={{ background: `hsl(${v.primaryHsl})` }} />
-              <Input
-                value={v.primaryHsl}
-                onChange={(e) => upd("primaryHsl", e.target.value)}
-                placeholder="330 82% 60%"
-              />
-            </div>
-          </div>
+          <CustomColorPicker value={v.primaryHsl} onChange={(h) => upd("primaryHsl", h)} />
         </Section>
 
         {/* ── 2. Accent / Secondary Colour ──────────────────────────── */}
         <Section icon={Palette} title="Accent / Secondary Colour">
           <ColorGrid colors={SECONDARY_COLORS} value={v.accentSecondaryHsl} onChange={(h) => upd("accentSecondaryHsl", h)} />
-          <div>
-            <Label className="text-xs text-slate-500">Custom HSL value</Label>
-            <div className="flex gap-2 mt-1">
-              <span className="w-8 h-9 rounded-lg border border-slate-200 shrink-0" style={{ background: `hsl(${v.accentSecondaryHsl})` }} />
-              <Input
-                value={v.accentSecondaryHsl}
-                onChange={(e) => upd("accentSecondaryHsl", e.target.value)}
-                placeholder="265 80% 58%"
-              />
-            </div>
-          </div>
+          <CustomColorPicker value={v.accentSecondaryHsl} onChange={(h) => upd("accentSecondaryHsl", h)} />
         </Section>
 
         {/* ── 3. Typography ─────────────────────────────────────────── */}

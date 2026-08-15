@@ -231,13 +231,13 @@ const QuickOrder = () => {
   // of the neutral grey desktop stepper, sized a touch bigger for touch
   // targets and to match the more premium mobile card treatment below.
   const QtyStepperMobile = ({ id, q }: { id: string; q: number }) => (
-    <div className="inline-flex items-center gap-0.5 rounded-full bg-slate-100 p-1">
+    <div className="inline-flex items-center gap-1 rounded-full bg-slate-100 p-1">
       <button
         onClick={() => setQ(id, q - 1)}
         disabled={q === 0}
-        className="w-7 h-7 shrink-0 rounded-full grid place-items-center bg-white text-slate-600 shadow-sm active:scale-95 disabled:opacity-30 disabled:active:scale-100 transition"
+        className="w-8 h-8 shrink-0 rounded-full grid place-items-center bg-white text-slate-600 shadow-sm active:scale-95 disabled:opacity-30 disabled:active:scale-100 transition"
       >
-        <Minus className="w-3.5 h-3.5" />
+        <Minus className="w-4 h-4" />
       </button>
       <input
         type="number"
@@ -248,13 +248,13 @@ const QuickOrder = () => {
           setQ(id, e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0)
         }
         onFocus={(e) => e.target.select()}
-        className="w-9 h-7 text-center rounded-full bg-transparent text-sm font-semibold text-slate-800 outline-none"
+        className="w-10 h-8 text-center rounded-full bg-transparent text-sm font-semibold text-slate-800 outline-none"
       />
       <button
         onClick={() => setQ(id, q + 1)}
-        className="w-7 h-7 shrink-0 rounded-full grid place-items-center bg-primary text-primary-foreground shadow-sm active:scale-95 transition"
+        className="w-8 h-8 shrink-0 rounded-full grid place-items-center bg-primary text-primary-foreground shadow-sm active:scale-95 transition"
       >
-        <Plus className="w-3.5 h-3.5" />
+        <Plus className="w-4 h-4" />
       </button>
     </div>
   );
@@ -511,7 +511,7 @@ const QuickOrder = () => {
                       </button>
 
                       {!isCollapsed && (
-                        <div className="mt-3 grid grid-cols-1 gap-3">
+                        <div className="mt-3 grid grid-cols-1 gap-4">
                           {section.items.map((p) => {
                             runningCodeMobile += 1;
                             const q = displayQty(p.id);
@@ -520,54 +520,51 @@ const QuickOrder = () => {
                             return (
                               <div
                                 key={p.id}
-                                className={`relative rounded-2xl bg-white border p-3 shadow-sm transition-all duration-200 ${
+                                className={`relative rounded-[28px] bg-white border p-4 shadow-sm transition-all duration-200 ${
                                   active
-                                    ? "border-primary/40 ring-1 ring-primary/20 shadow-md"
+                                    ? "border-primary/50 ring-2 ring-primary/20 shadow-lg shadow-primary/10"
                                     : "border-slate-200"
                                 }`}
                               >
-                                <div className="flex gap-3">
-                                  {/* Image block with numbered chip + discount ribbon */}
+                                <div className="flex gap-4">
+                                  {/* Big square image block with numbered chip + discount ribbon */}
                                   <div className="relative shrink-0">
-                                    <div
-                                      className="qo-image rounded-xl bg-slate-50 border border-slate-100 grid place-items-center overflow-hidden"
-                                      style={{ width: "calc(var(--qo-image-size, 56px) + 24px)", height: "calc(var(--qo-image-size, 56px) + 24px)" }}
-                                    >
+                                    <div className="w-28 h-28 rounded-[22px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_18px_rgba(15,23,42,0.08)] grid place-items-center overflow-hidden">
                                       <img
                                         src={p.image}
                                         alt={p.name}
-                                        className="w-full h-full object-contain p-1.5"
+                                        className="w-full h-full object-contain p-2.5 drop-shadow-[0_8px_12px_rgba(15,23,42,0.12)]"
                                       />
                                     </div>
-                                    <span className="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-slate-800 text-white text-[10px] font-bold grid place-items-center shadow">
+                                    <span className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-slate-800 text-white text-[11px] font-bold grid place-items-center shadow-md">
                                       {runningCodeMobile}
                                     </span>
                                     {p.discountPercent ? (
-                                      <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 shadow">
+                                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-0.5 shadow-md">
                                         {p.discountPercent}% OFF
                                       </span>
                                     ) : null}
                                   </div>
 
                                   {/* Name, price, badge */}
-                                  <div className="min-w-0 flex-1 flex flex-col justify-between">
+                                  <div className="min-w-0 flex-1 flex flex-col justify-between py-0.5">
                                     <div>
-                                      <p className="font-semibold text-slate-800 text-sm leading-snug line-clamp-2">
+                                      <p className="font-bold text-slate-800 text-base leading-snug line-clamp-2">
                                         {p.name}
                                       </p>
                                       {p.badge && (
-                                        <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold text-primary">
-                                          <Sparkles className="w-3 h-3" />
+                                        <span className="inline-flex items-center gap-1 mt-1.5 text-[11px] font-semibold text-primary">
+                                          <Sparkles className="w-3.5 h-3.5" />
                                           {p.badge}
                                         </span>
                                       )}
                                     </div>
-                                    <div className="flex items-baseline gap-1.5 mt-1">
-                                      <span className="text-base font-extrabold text-rose-500">
+                                    <div className="flex items-baseline gap-2 mt-2">
+                                      <span className="text-xl font-extrabold text-rose-500">
                                         ₹{price}
                                       </span>
                                       {p.discountPercent ? (
-                                        <span className="text-xs text-slate-400 line-through">
+                                        <span className="text-sm text-slate-400 line-through">
                                           ₹{p.price}
                                         </span>
                                       ) : null}
@@ -577,10 +574,10 @@ const QuickOrder = () => {
 
                                 {/* Footer: stepper on the left, running total pill on
                                     the right — only lights up once qty > 0. */}
-                                <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+                                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
                                   <QtyStepperMobile id={p.id} q={q} />
                                   <span
-                                    className={`rounded-full text-xs font-bold px-3 py-1.5 transition-colors ${
+                                    className={`rounded-full text-sm font-bold px-4 py-2 transition-colors ${
                                       active
                                         ? "bg-primary text-primary-foreground"
                                         : "bg-slate-100 text-slate-400"
