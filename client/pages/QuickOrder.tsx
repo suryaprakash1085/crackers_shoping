@@ -3,14 +3,28 @@ import { Layout } from "@/components/Layout";
 import { useProducts } from "@/hooks/useProducts";
 import { useCategories } from "@/hooks/useCategories";
 import { useCart } from "@/context/CartContext";
-import { Search, Minus, Plus, ShoppingCart, ChevronUp, ChevronDown, Sparkles } from "lucide-react";
+import {
+  Search,
+  Minus,
+  Plus,
+  ShoppingCart,
+  ChevronUp,
+  ChevronDown,
+  Sparkles,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useAppCustomization } from "@/lib/appSettings";
 
 const QuickOrder = () => {
   const { products, loading } = useProducts();
   const { categories: categoryList } = useCategories();
-  const { updateQty, items: cartItems, setOpen, minOrderAmount, total: cartTotal } = useCart();
+  const {
+    updateQty,
+    items: cartItems,
+    setOpen,
+    minOrderAmount,
+    total: cartTotal,
+  } = useCart();
   const { quickOrder: qo } = useAppCustomization();
   const rowPadClass = qo?.density === "compact" ? "py-1.5" : "py-3";
   const [search, setSearch] = useState("");
@@ -77,7 +91,9 @@ const QuickOrder = () => {
 
   const cartQtyMap = useMemo(() => {
     const m: Record<string, number> = {};
-    cartItems.forEach((i) => { m[i.id] = i.qty; });
+    cartItems.forEach((i) => {
+      m[i.id] = i.qty;
+    });
     return m;
   }, [cartItems]);
 
@@ -105,8 +121,12 @@ const QuickOrder = () => {
       }
     });
     return names.sort((a, b) => {
-      const orderA = orderByName.has(a) ? orderByName.get(a)! : Number.MAX_SAFE_INTEGER;
-      const orderB = orderByName.has(b) ? orderByName.get(b)! : Number.MAX_SAFE_INTEGER;
+      const orderA = orderByName.has(a)
+        ? orderByName.get(a)!
+        : Number.MAX_SAFE_INTEGER;
+      const orderB = orderByName.has(b)
+        ? orderByName.get(b)!
+        : Number.MAX_SAFE_INTEGER;
       return orderA - orderB;
     });
   }, [products, categoryList]);
@@ -213,7 +233,10 @@ const QuickOrder = () => {
         value={q === 0 ? "" : q}
         placeholder="0"
         onChange={(e) =>
-          setQ(id, e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0)
+          setQ(
+            id,
+            e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0,
+          )
         }
         onFocus={(e) => e.target.select()}
         className="w-12 h-8 text-center rounded-lg border border-slate-300 bg-white text-sm"
@@ -245,7 +268,10 @@ const QuickOrder = () => {
         value={q === 0 ? "" : q}
         placeholder="0"
         onChange={(e) =>
-          setQ(id, e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0)
+          setQ(
+            id,
+            e.target.value === "" ? 0 : parseInt(e.target.value, 10) || 0,
+          )
         }
         onFocus={(e) => e.target.select()}
         className="w-10 h-8 text-center rounded-full bg-transparent text-sm font-semibold text-slate-800 outline-none"
@@ -333,7 +359,9 @@ const QuickOrder = () => {
               >
                 <option value="All">All Categories ({products.length})</option>
                 {categories.map((c) => {
-                  const count = products.filter((p: any) => p.category === c).length;
+                  const count = products.filter(
+                    (p: any) => p.category === c,
+                  ).length;
                   return (
                     <option key={c} value={c}>
                       {c} ({count})
@@ -353,7 +381,9 @@ const QuickOrder = () => {
                   scrolled ? "text-[10px] leading-tight" : "text-xs"
                 }`}
               >
-                Minimum order amount is ₹{minOrderAmount}. Your cart currently has ₹{cartTotal} — add ₹{minOrderAmount - cartTotal} more to be able to checkout.
+                Minimum order amount is ₹{minOrderAmount}. Your cart currently
+                has ₹{cartTotal} — add ₹{minOrderAmount - cartTotal} more to be
+                able to checkout.
               </p>
             )}
           </div>
@@ -395,7 +425,8 @@ const QuickOrder = () => {
 
                   {sections.map((section) => {
                     const isCollapsed =
-                      collapsed[section.category] ?? qo?.defaultExpanded === false;
+                      collapsed[section.category] ??
+                      qo?.defaultExpanded === false;
                     return (
                       <div key={section.category}>
                         <button
@@ -428,7 +459,9 @@ const QuickOrder = () => {
                                 key={p.id}
                                 className={`grid grid-cols-[70px_90px_1fr_120px_170px_110px] items-center border-t border-slate-200 ${rowBg}`}
                               >
-                                <div className={`px-4 ${rowPadClass} text-sm text-slate-500`}>
+                                <div
+                                  className={`px-4 ${rowPadClass} text-sm text-slate-500`}
+                                >
                                   {runningCode}
                                 </div>
                                 <div className={`px-4 ${rowPadClass}`}>
@@ -439,14 +472,18 @@ const QuickOrder = () => {
                                   />
                                 </div>
                                 <div className={`px-4 ${rowPadClass}`}>
-                                  <p className="font-semibold text-slate-800">{p.name}</p>
+                                  <p className="font-semibold text-slate-800">
+                                    {p.name}
+                                  </p>
                                   {p.badge && (
                                     <span className="text-[10px] text-primary font-semibold">
                                       {p.badge}
                                     </span>
                                   )}
                                 </div>
-                                <div className={`px-4 ${rowPadClass} text-center`}>
+                                <div
+                                  className={`px-4 ${rowPadClass} text-center`}
+                                >
                                   {p.discountPercent ? (
                                     <>
                                       <p className="text-xs text-slate-400 line-through">
@@ -467,7 +504,9 @@ const QuickOrder = () => {
                                     <QtyStepper id={p.id} q={q} />
                                   </div>
                                 </div>
-                                <div className={`px-4 ${rowPadClass} text-right font-semibold text-slate-800`}>
+                                <div
+                                  className={`px-4 ${rowPadClass} text-right font-semibold text-slate-800`}
+                                >
                                   ₹{q * price}
                                 </div>
                               </div>
@@ -490,7 +529,8 @@ const QuickOrder = () => {
               <div className="md:hidden space-y-5">
                 {sections.map((section) => {
                   const isCollapsed =
-                    collapsed[section.category] ?? qo?.defaultExpanded === false;
+                    collapsed[section.category] ??
+                    qo?.defaultExpanded === false;
                   return (
                     <div key={section.category}>
                       <button
