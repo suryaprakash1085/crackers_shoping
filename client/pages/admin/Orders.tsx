@@ -19,6 +19,27 @@ import { usePagePermissions } from "@/hooks/useAccessControl";
 import { buildInvoicePdf } from "@/lib/invoicePdf";
 import { buildLiveInvoiceCfg } from "@/lib/invoiceCompany";
 
+// Renders any date-ish value (raw "YYYY-MM-DD", full ISO timestamp, or
+// Date instance) as dd/mm/yyyy for display in the admin panel and on the
+// downloaded invoice PDF.
+const formatDateDDMMYYYY = (value: unknown): string => {
+  if (!value) return "-";
+  // Date-only strings ("2026-08-12" or "2026-08-12T00:00:00.000Z") — read
+  // the y/m/d digits directly so timezone conversion can't shift the day.
+  const raw = value instanceof Date ? value.toISOString() : String(value);
+  const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (match) {
+    const [, yyyy, mm, dd] = match;
+    return `${dd}/${mm}/${yyyy}`;
+  }
+  const d = new Date(raw);
+  if (isNaN(d.getTime())) return raw;
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const yyyy = d.getFullYear();
+  return `${dd}/${mm}/${yyyy}`;
+};
+
 type Status = "Pending" | "Processing" | "Shipped" | "Delivered";
 type PaymentMethod = "Pending" | "Cash on Delivery" | "Online Payment" | "UPI" | "Card";
 
@@ -228,7 +249,7 @@ export default function Orders() {
       const pdfCfg = await buildLiveInvoiceCfg(Number(full.total));
       const doc = buildInvoicePdf(pdfCfg, {
         invoiceNo: full.order_number,
-        date: full.order_date,
+        date: formatDateDDMMYYYY(full.order_date),
         customer: { name: full.customer_name, phone: full.phone, address: full.address },
         items: items.length ? items : [{ name: "Order total", qty: 1, price: Number(full.total), unit: "-" }],
         total: Number(full.total),
@@ -246,7 +267,7 @@ export default function Orders() {
     { header: "Order ID", cell: (o) => <span className="font-mono">{o.order_number}</span> },
     { header: "Customer", cell: (o) => o.customer_name },
     { header: "Phone", cell: (o) => o.phone },
-    { header: "Date", cell: (o) => o.order_date },
+    { header: "Date", cell: (o) => formatDateDDMMYYYY(o.order_date) },
     { header: "Total", cell: (o) => `₹${o.total}` },
     { header: "Status", cell: (o) => <Badge className={statusVariants[o.status]}>{o.status}</Badge> },
     {
@@ -304,7 +325,7 @@ export default function Orders() {
             <div><Label>Customer</Label><p className="font-medium">{modal.item.customer_name}</p></div>
             <div><Label>Phone</Label><p>{modal.item.phone}</p></div>
             <div><Label>Address</Label><p>{modal.item.address}</p></div>
-            <div><Label>Date</Label><p>{modal.item.order_date}</p></div>
+            <div><Label>Date</Label><p>{formatDateDDMMYYYY(modal.item.order_date)}</p></div>
             <div>
               <Label>Products</Label>
               {modal.item.items && modal.item.items.length > 0 ? (

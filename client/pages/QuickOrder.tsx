@@ -183,8 +183,6 @@ const QuickOrder = () => {
       const p = products.find((x) => x.id === id);
       if (p) updateQty(id, n, p);
     });
-    const addedCount = touched.reduce((s, [, n]) => s + n, 0);
-    toast.success(`Added ${addedCount} item${addedCount > 1 ? "s" : ""} to cart`);
     // Clear local overrides only — rows now fall back to the updated
     // cartQtyMap, so already-added products keep showing their real
     // quantity instead of resetting to 0.
