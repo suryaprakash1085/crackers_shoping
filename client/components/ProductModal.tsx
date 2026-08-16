@@ -60,11 +60,20 @@ export const ProductModal = ({ product, onClose }: Props) => {
                       <Minus className="w-4 h-4" />
                     </button>
                     <input
-                      type="number"
-                      min={0}
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={qty}
-                      onChange={(e) => setQty(+e.target.value || 0)}
-                      className="w-16 h-10 text-center text-base font-semibold bg-transparent outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        // Keep digits only, then drop any leading zeros ("06" -> "6").
+                        // Empty field counts as 0.
+                        const digitsOnly = e.target.value.replace(/\D/g, "");
+                        const num =
+                          digitsOnly === "" ? 0 : Number(digitsOnly.replace(/^0+(?=\d)/, ""));
+                        setQty(num);
+                      }}
+                      className="w-16 h-10 text-center text-base font-semibold bg-transparent outline-none"
                     />
                     <button
                       type="button"
