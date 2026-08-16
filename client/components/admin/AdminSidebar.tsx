@@ -14,6 +14,9 @@ import {
   BarChart3,
   Shield,
   MessageSquare,
+  Home,
+  Info,
+  Layers,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -39,6 +42,9 @@ const items: { title: string; url: string; icon: React.ElementType; end?: boolea
   { title: "Users",          url: "/admin/users",          icon: Users,                      pageKey: "users"          },
   { title: "Company",        url: "/admin/company",        icon: Building2,                  pageKey: "company"        },
   { title: "Contact Msgs",   url: "/admin/contact-submissions", icon: MessageSquare,          pageKey: "contact-submissions" },
+  { title: "Home Content",   url: "/admin/home-content",   icon: Home,                       pageKey: "home-content"   },
+  { title: "About Content",  url: "/admin/about-content",  icon: Info,                       pageKey: "about-content"  },
+  { title: "Services Content", url: "/admin/services-content", icon: Layers,                 pageKey: "services-content" },
   { title: "Customization",  url: "/admin/customization",  icon: Palette,                    pageKey: "customization"  },
   { title: "PDF Template",   url: "/admin/pdf-template",   icon: FileText,                   pageKey: "pdf-template"   },
   { title: "Email Settings", url: "/admin/email-settings", icon: Mail,                       pageKey: "email-settings" },

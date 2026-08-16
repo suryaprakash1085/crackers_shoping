@@ -45,9 +45,20 @@ const ShowToggle = ({ label, checked, onChange }: { label: string; checked: bool
 
 export default function AboutContent() {
   const [v, setV] = useState<AboutSettings>(settingsStore.getAbout());
+  const [saving, setSaving] = useState(false);
   const set = <K extends keyof AboutSettings>(k: K, val: AboutSettings[K]) => setV((p) => ({ ...p, [k]: val }));
 
-  const save = () => { settingsStore.setAbout(v); toast.success("About page updated"); };
+  const save = async () => {
+    setSaving(true);
+    try {
+      await settingsStore.setAbout(v);
+      toast.success("About page updated for all visitors");
+    } catch {
+      toast.error("Saved locally, but couldn't reach the server — changes may not show for other visitors yet.");
+    } finally {
+      setSaving(false);
+    }
+  };
   const reset = () => { setV(settingsStore.defaults.about); toast.info("Reset — click Save to apply"); };
 
   return (
@@ -59,7 +70,7 @@ export default function AboutContent() {
         action={
           <div className="flex gap-2">
             <Button variant="outline" onClick={reset} className="border-slate-200 bg-slate-50 text-slate-700"><RotateCcw className="w-4 h-4 mr-2" />Reset</Button>
-            <Button onClick={save} className="bg-orange-600 hover:bg-orange-500"><Save className="w-4 h-4 mr-2" />Save</Button>
+            <Button onClick={save} disabled={saving} className="bg-orange-600 hover:bg-orange-500"><Save className="w-4 h-4 mr-2" />{saving ? "Saving..." : "Save"}</Button>
           </div>
         }
       />

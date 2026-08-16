@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Loader } from "@/components/Loader";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/CartDrawer";
 import { FloatingActions } from "@/components/FloatingActions";
@@ -33,8 +31,11 @@ import AdminEmailSettings from "./pages/admin/EmailSettings.tsx";
 import AdminAccessControl from "./pages/admin/AccessControl.tsx";
 import AdminReport from "./pages/admin/Report.tsx";
 import AdminContactSubmissions from "./pages/admin/ContactSubmissions.tsx";
+import AdminHomeContent from "./pages/admin/HomeContent.tsx";
+import AdminAboutContent from "./pages/admin/AboutContent.tsx";
+import AdminServicesContent from "./pages/admin/ServicesContent.tsx";
 
-import { useApplyAppCustomization, useSyncAppSettingsFromServer } from "@/lib/appSettings";
+import { useApplyAppCustomization, useSyncAppSettingsFromServer, useSyncCmsContentFromServer } from "@/lib/appSettings";
 import { useApplyCompanyMeta } from "@/hooks/useCompany";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const AppRoutes = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   useSyncAppSettingsFromServer(); // pull real DB settings (fireworks/sparks/etc.) for every visitor, mobile included
+  useSyncCmsContentFromServer(); // pull real Home/About/Services page content for every visitor, mobile included
   useApplyAppCustomization();
   useApplyCompanyMeta(); // sync browser tab title + favicon with Admin > Company (name & logo)
 
@@ -70,6 +72,9 @@ const AppRoutes = () => {
         <Route path="/admin/services" element={<AdminLayout><AdminServices /></AdminLayout>} />
         <Route path="/admin/users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
         <Route path="/admin/company" element={<AdminLayout><AdminCompany /></AdminLayout>} />
+        <Route path="/admin/home-content" element={<AdminLayout><AdminHomeContent /></AdminLayout>} />
+        <Route path="/admin/about-content" element={<AdminLayout><AdminAboutContent /></AdminLayout>} />
+        <Route path="/admin/services-content" element={<AdminLayout><AdminServicesContent /></AdminLayout>} />
         <Route path="/admin/customization" element={<AdminLayout><AdminCustomization /></AdminLayout>} />
       
         <Route path="/admin/pdf-template" element={<AdminLayout><AdminPdfTemplate /></AdminLayout>} />
@@ -85,19 +90,12 @@ const AppRoutes = () => {
 };
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1800);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <CartProvider>
           <Toaster />
           <Sonner />
-          {!loaded && <Loader />}
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>

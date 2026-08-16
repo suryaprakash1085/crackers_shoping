@@ -40,34 +40,44 @@
 
     --radius: 0.9rem;
 
-    --gradient-sky: linear-gradient(180deg, #fcfbff 0%, #f5f0ff 100%);
+    /* All gradients below are derived from --primary / --secondary only,
+       so changing the theme colours in Admin → Customization updates the
+       entire site consistently (no unrelated hardcoded colours). */
+    --gradient-sky: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.04) 0%,
+      hsl(var(--secondary) / 0.06) 100%
+    );
     --gradient-festive: linear-gradient(
       120deg,
-      #ff4d91 0%,
-      #8b5cf6 52%,
-      #ff8a3d 100%
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 100%
     );
     --gradient-pink: linear-gradient(
       135deg,
-      #fdf2f8 0%,
-      #f5e8ff 50%,
-      #ffe8d6 100%
+      hsl(var(--primary) / 0.08) 0%,
+      hsl(var(--secondary) / 0.08) 50%,
+      hsl(var(--primary) / 0.08) 100%
     );
-    --gradient-gold: linear-gradient(135deg, #ffb020 0%, #ffd56a 100%);
+    --gradient-gold: linear-gradient(
+      135deg,
+      hsl(var(--secondary)) 0%,
+      hsl(var(--primary)) 100%
+    );
     --gradient-card: linear-gradient(
       145deg,
       rgba(255, 255, 255, 0.98),
-      rgba(250, 247, 255, 0.96)
+      hsl(var(--secondary) / 0.04)
     );
 
     --glow-primary:
       0 0 0 1px rgba(255, 255, 255, 0.85),
-      0 18px 40px -18px rgba(236, 72, 153, 0.28);
-    --glow-gold: 0 0 24px rgba(255, 176, 32, 0.2);
-    --glow-pink: 0 0 24px rgba(236, 72, 153, 0.18);
+      0 18px 40px -18px hsl(var(--primary) / 0.28);
+    --glow-gold: 0 0 24px hsl(var(--secondary) / 0.2);
+    --glow-pink: 0 0 24px hsl(var(--primary) / 0.18);
     --shadow-soft: 0 18px 48px -20px rgba(15, 23, 42, 0.15);
     --shadow-card: 0 16px 40px -24px rgba(15, 23, 42, 0.16);
-    --shadow-card-hover: 0 24px 60px -22px rgba(139, 92, 246, 0.2);
+    --shadow-card-hover: 0 24px 60px -22px hsl(var(--secondary) / 0.2);
 
     --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -122,13 +132,13 @@
 
   .btn-outline-festive {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold border-2 transition-all;
-    border-color: hsl(330 82% 60%);
-    color: hsl(330 82% 60%);
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
     background: hsl(var(--card));
   }
   .btn-outline-festive:hover {
-    border-color: hsl(20 92% 55%);
-    color: hsl(20 92% 55%);
+    border-color: hsl(var(--secondary));
+    color: hsl(var(--secondary));
     transform: translateY(-2px);
   }
 
@@ -276,10 +286,10 @@
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 16px hsl(24 93% 53% / 0.3);
+    box-shadow: 0 0 16px hsl(var(--primary) / 0.3);
   }
   50% {
-    box-shadow: 0 0 26px hsl(24 93% 53% / 0.5);
+    box-shadow: 0 0 26px hsl(var(--primary) / 0.5);
   }
 }
 
@@ -359,7 +369,7 @@
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, hsl(24 93% 53% / 0.08), transparent 60%);
+  background: radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 60%);
   transform: translate(-50%, -50%);
   z-index: 1;
   mix-blend-mode: screen;

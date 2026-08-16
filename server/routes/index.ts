@@ -12,6 +12,7 @@ import emailSettingsRoutes from "./emailSettings.routes";
 import accessControlRoutes from "./accessControl.routes";
 import contactRoutes from "./contact.routes";
 import appSettingsRoutes from "./appSettings.routes";
+import pageContentRoutes from "./pageContent.routes";
 
 const router = Router();
 
@@ -28,5 +29,6 @@ router.use("/email-settings", emailSettingsRoutes);
 router.use("/access-control", accessControlRoutes);
 router.use("/contact", contactRoutes);
 router.use("/app-settings", appSettingsRoutes);
+router.use("/page-content", pageContentRoutes);
 
 export default router;

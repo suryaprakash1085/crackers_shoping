@@ -37,7 +37,7 @@ export const Hero3D = () => (
       style={{
         width: 80,
         height: 80,
-        background: "radial-gradient(circle, hsl(316 91% 60%), hsl(263 70% 55%) 60%, transparent 100%)",
+        background: "radial-gradient(circle, hsl(var(--primary)), hsl(var(--secondary)) 60%, transparent 100%)",
         filter: "blur(14px)",
       }}
     />
@@ -50,8 +50,8 @@ export const Hero3D = () => (
       style={{
         width: 56,
         height: 56,
-        background: "linear-gradient(135deg, hsl(316 91% 55%), hsl(263 70% 55%))",
-        boxShadow: "0 0 32px hsl(316 91% 55% / .4), 0 0 60px hsl(263 70% 55% / .2)",
+        background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
+        boxShadow: "0 0 32px hsl(var(--primary) / .4), 0 0 60px hsl(var(--secondary) / .2)",
       }}
     >
       🎆

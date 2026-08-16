@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Rocket,
   Sparkles as SparklesIcon,
-  Droplets,
-  Bomb,
   Flame,
   ChevronLeft,
   ChevronRight,
@@ -15,6 +12,7 @@ import { SparkButton } from "@/components/SparkButton";
 import { Tilt3D } from "@/components/Tilt3D";
 import { ProductCard } from "@/components/ProductCard";
 import { useProducts } from "@/hooks/useProducts";
+import { useCategories } from "@/hooks/useCategories";
 import heroImg from "@/assets/hero-crackers.png";
 import giftbox from "@/assets/giftbox.png";
 import { Link } from "react-router-dom";
@@ -22,16 +20,15 @@ import { useRef } from "react";
 import { useHomeSettings } from "@/lib/appSettings";
 import { Icon } from "@/lib/iconMap";
 
-const CATEGORIES = [
-  { name: "Rockets", icon: Rocket, hue: 6 },
-  { name: "Sparklers", icon: SparklesIcon, hue: 42 },
-  { name: "Fountains", icon: Droplets, hue: 200 },
-  { name: "Bombs", icon: Bomb, hue: 340 },
-] as const;
+// Category cards without an admin-uploaded image fall back to an icon tinted
+// with the site's theme colours (alternating primary / secondary) so every
+// part of the page stays on-brand instead of introducing unrelated colours.
+const isPrimary = (id: number) => id % 2 === 0;
 
 const Index = () => {
   const h = useHomeSettings();
   const { products } = useProducts();
+  const { categories } = useCategories();
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollByCards = (dir: 1 | -1) => {
     scrollRef.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
@@ -122,12 +119,9 @@ const Index = () => {
                     <div
                       className="w-11 h-11 rounded-2xl grid place-items-center text-white shadow-soft shrink-0"
                       style={{
-                        background: [
-                          "hsl(330 82% 60%)",
-                          "hsl(20 92% 55%)",
-                          "hsl(265 70% 58%)",
-                          "hsl(330 82% 60%)",
-                        ][i % 4],
+                        background: i % 2 === 0
+                          ? "hsl(var(--primary))"
+                          : "hsl(var(--secondary))",
                       }}
                     >
                       <Icon name={f.icon} className="w-5 h-5" />
@@ -199,33 +193,49 @@ const Index = () => {
         </section>
       )}
 
-      {/* CATEGORY STRIP */}
-      <section className="pb-10 relative">
-        <div className="container-festive">
-          <div className="glass-card rounded-3xl px-6 py-6 flex flex-wrap justify-center sm:justify-between gap-6">
-            {CATEGORIES.map((c) => (
-              <Link
-                key={c.name}
-                to={`/products?category=${encodeURIComponent(c.name)}`}
-                className="flex flex-col items-center gap-2 group w-20"
-              >
-                <div
-                  className="w-12 h-12 rounded-full grid place-items-center group-hover:scale-110 transition-transform"
-                  style={{ background: `hsl(${c.hue} 95% 92%)` }}
+      {/* CATEGORY GRID — each category is its own card */}
+      {categories.length > 0 && (
+        <section className="pb-10 relative">
+          <div className="container-festive">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+              {categories.map((c, i) => (
+                <Link
+                  key={c.id}
+                  to={`/products?category=${encodeURIComponent(c.name)}`}
+                  className="glass-card rounded-2xl px-3 py-5 flex flex-col items-center gap-2 group transition-all hover:-translate-y-1 hover:shadow-card-hover"
                 >
-                  <c.icon
-                    className="w-5 h-5"
-                    style={{ color: `hsl(${c.hue} 80% 45%)` }}
-                  />
-                </div>
-                <span className="text-xs font-semibold text-center">
-                  {c.name}
-                </span>
-              </Link>
-            ))}
+                  {c.image ? (
+                    <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm group-hover:scale-110 transition-transform">
+                      <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div
+                      className="w-12 h-12 rounded-full grid place-items-center group-hover:scale-110 transition-transform"
+                      style={{
+                        background: isPrimary(i)
+                          ? "hsl(var(--primary) / 0.12)"
+                          : "hsl(var(--secondary) / 0.12)",
+                      }}
+                    >
+                      <SparklesIcon
+                        className="w-5 h-5"
+                        style={{
+                          color: isPrimary(i)
+                            ? "hsl(var(--primary))"
+                            : "hsl(var(--secondary))",
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs font-semibold text-center line-clamp-1">
+                    {c.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* OFFER BANNER */}
       {h.offer.show && (

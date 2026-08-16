@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "./api";
 
 export type AppCustom = {
   // Theme
@@ -159,11 +160,34 @@ export type AboutSettings = {
   };
 };
 
+export type ServicesSettings = {
+  header: {
+    show: boolean;
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    description: string;
+  };
+  items: {
+    show: boolean;
+    list: { icon: string; image: string; title: string; desc: string; link: string; colorHue: string }[];
+  };
+  cta: {
+    show: boolean;
+    title: string;
+    description: string;
+    buttonLabel: string;
+    buttonLink: string;
+    image: string;
+  };
+};
+
 const APP_KEY = "app_customization";
 const PDF_KEY = "pdf_settings";
 const EMAIL_KEY = "email_settings";
 const HOME_KEY = "home_settings";
 const ABOUT_KEY = "about_settings";
+const SERVICES_KEY = "services_settings";
 
 const defaults = {
   app: {
@@ -324,6 +348,31 @@ const defaults = {
       ],
     },
   } as AboutSettings,
+  services: {
+    header: {
+      show: true,
+      badge: "Our Services",
+      title: "We provide the",
+      titleHighlight: "best services",
+      description: "For your celebrations, big or small.",
+    },
+    items: {
+      show: true,
+      list: [
+        { icon: "Package", image: "", title: "Bulk Orders", desc: "Get the best deals on bulk purchases for weddings, festivals & more.", link: "/contact", colorHue: "6" },
+        { icon: "Sparkles", image: "", title: "Event Fireworks", desc: "Make your events more special with professional firework displays.", link: "/contact", colorHue: "340" },
+        { icon: "Gift", image: "", title: "Custom Gift Boxes", desc: "Custom designed festive gift boxes for your loved ones.", link: "/contact", colorHue: "42" },
+      ],
+    },
+    cta: {
+      show: true,
+      title: "Need Help With Bulk Order?",
+      description: "Get in touch with our team for the best quotes and offers.",
+      buttonLabel: "Contact Us",
+      buttonLink: "/contact",
+      image: "",
+    },
+  } as ServicesSettings,
 };
 
 const read = <T,>(key: string, fallback: T): T => {
@@ -350,12 +399,22 @@ const read = <T,>(key: string, fallback: T): T => {
   }
 };
 
+// Pushes a CMS page's content (home/about/services) to the server so every
+// visitor sees the admin's changes, not just the browser that saved them.
+// Fire-and-forget from the caller's point of view — local state/localStorage
+// has already been updated synchronously, this just persists it. Errors are
+// surfaced to whoever calls save() via the returned promise.
+const pushPageContentToServer = async (key: "home" | "about" | "services", value: unknown) => {
+  await api.put(`/page-content/${key}`, value);
+};
+
 export const settingsStore = {
   getApp: () => read(APP_KEY, defaults.app),
   getPdf: () => read(PDF_KEY, defaults.pdf),
   getEmail: () => read(EMAIL_KEY, defaults.email),
   getHome: () => read(HOME_KEY, defaults.home),
   getAbout: () => read(ABOUT_KEY, defaults.about),
+  getServices: () => read(SERVICES_KEY, defaults.services),
   setApp: (v: AppCustom) => {
     localStorage.setItem(APP_KEY, JSON.stringify(v));
     window.dispatchEvent(new Event("settings-change"));
@@ -368,13 +427,22 @@ export const settingsStore = {
     localStorage.setItem(EMAIL_KEY, JSON.stringify(v));
     window.dispatchEvent(new Event("settings-change"));
   },
+  // These three also sync to the server (page_content table) so the content
+  // is the same for every visitor, not just whoever clicked Save.
   setHome: (v: HomeSettings) => {
     localStorage.setItem(HOME_KEY, JSON.stringify(v));
     window.dispatchEvent(new Event("settings-change"));
+    return pushPageContentToServer("home", v);
   },
   setAbout: (v: AboutSettings) => {
     localStorage.setItem(ABOUT_KEY, JSON.stringify(v));
     window.dispatchEvent(new Event("settings-change"));
+    return pushPageContentToServer("about", v);
+  },
+  setServices: (v: ServicesSettings) => {
+    localStorage.setItem(SERVICES_KEY, JSON.stringify(v));
+    window.dispatchEvent(new Event("settings-change"));
+    return pushPageContentToServer("services", v);
   },
   defaults,
 };
@@ -423,6 +491,20 @@ export const useAboutSettings = () => {
   return v;
 };
 
+export const useServicesSettings = () => {
+  const [v, setV] = useState<ServicesSettings>(settingsStore.getServices());
+  useEffect(() => {
+    const h = () => setV(settingsStore.getServices());
+    window.addEventListener("settings-change", h);
+    window.addEventListener("storage", h);
+    return () => {
+      window.removeEventListener("settings-change", h);
+      window.removeEventListener("storage", h);
+    };
+  }, []);
+  return v;
+};
+
 /**
  * Fetches the real app-customization settings from the server (public DB values)
  * and syncs them into the local store. Without this, visitors who've never
@@ -445,6 +527,46 @@ export const useSyncAppSettingsFromServer = () => {
       .catch(() => {
         // Server unreachable — fall back to whatever is already in localStorage/defaults
       });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+};
+
+/**
+ * Fetches the real Home / About / Services page content from the server
+ * (page_content table) and syncs it into the local store, the same way
+ * useSyncAppSettingsFromServer does for the theme. Without this, visitors
+ * who never opened the admin panel in their own browser would only ever
+ * see the hard-coded defaults instead of what the admin actually wrote.
+ * Call this once near the app root, for every visitor.
+ */
+export const useSyncCmsContentFromServer = () => {
+  useEffect(() => {
+    let cancelled = false;
+    const sync = async (key: "home" | "about" | "services", fallback: any, setter: (v: any) => void) => {
+      try {
+        const res = await fetch(`/api/page-content/${key}`);
+        const json = await res.json();
+        if (cancelled) return;
+        if (json?.data && Object.keys(json.data).length > 0) {
+          const merged: any = { ...fallback };
+          for (const k of Object.keys(json.data)) {
+            const fv = fallback[k];
+            const sv = json.data[k];
+            merged[k] = fv && typeof fv === "object" && !Array.isArray(fv) && sv && typeof sv === "object" && !Array.isArray(sv)
+              ? { ...fv, ...sv }
+              : sv;
+          }
+          setter(merged);
+        }
+      } catch {
+        // Server unreachable — fall back to whatever is already in localStorage/defaults
+      }
+    };
+    sync("home", defaults.home, (v) => { localStorage.setItem(HOME_KEY, JSON.stringify(v)); window.dispatchEvent(new Event("settings-change")); });
+    sync("about", defaults.about, (v) => { localStorage.setItem(ABOUT_KEY, JSON.stringify(v)); window.dispatchEvent(new Event("settings-change")); });
+    sync("services", defaults.services, (v) => { localStorage.setItem(SERVICES_KEY, JSON.stringify(v)); window.dispatchEvent(new Event("settings-change")); });
     return () => {
       cancelled = true;
     };

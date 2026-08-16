@@ -33,7 +33,7 @@ export const Footer = () => {
             <div key={i} className="flex items-start gap-3">
               <div
                 className="w-12 h-12 shrink-0 rounded-full grid place-items-center text-white"
-                style={{ background: ["hsl(330 82% 60%)", "hsl(200 85% 55%)", "hsl(42 92% 55%)", "hsl(20 92% 55%)", "hsl(330 82% 60%)"][i % 5] }}
+                style={{ background: i % 2 === 0 ? "hsl(var(--primary))" : "hsl(var(--secondary))" }}
               >
                 <f.icon className="w-5 h-5" />
               </div>

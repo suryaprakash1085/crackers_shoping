@@ -14,6 +14,7 @@ export type AdminPageKey =
   | "contact-submissions"
   | "home-content"
   | "about-content"
+  | "services-content"
   | "customization"
   | "pdf-template"
   | "email-settings"
@@ -31,6 +32,7 @@ export const ADMIN_PAGES: { key: AdminPageKey; label: string; path: string }[] =
   { key: "contact-submissions", label: "Contact Submissions", path: "/admin/contact-submissions" },
   { key: "home-content", label: "Home Content", path: "/admin/home-content" },
   { key: "about-content", label: "About Content", path: "/admin/about-content" },
+  { key: "services-content", label: "Services Content", path: "/admin/services-content" },
   { key: "customization", label: "Customization", path: "/admin/customization" },
   { key: "pdf-template", label: "PDF Template", path: "/admin/pdf-template" },
   { key: "email-settings", label: "Email Settings", path: "/admin/email-settings" },
@@ -95,6 +97,7 @@ const defaultRoles: Role[] = [
       services: { ...ALL_METHODS },
       "home-content": { ...ALL_METHODS },
       "about-content": { ...ALL_METHODS },
+      "services-content": { ...ALL_METHODS },
     },
   },
   {
@@ -105,6 +108,7 @@ const defaultRoles: Role[] = [
       dashboard: { ...READ_ONLY },
       "home-content": { ...ALL_METHODS },
       "about-content": { ...ALL_METHODS },
+      "services-content": { ...ALL_METHODS },
     },
   },
   {
